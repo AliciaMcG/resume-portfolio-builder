@@ -1,8 +1,9 @@
 from django.shortcuts import render
 
+from resumebuilder.models import Experience
+
+
 # Create your views here.
-
-from django.http import HttpResponse
-
 def index(request):
-    return HttpResponse("Hello, World!")
+    experiences = Experience.objects.all()
+    return render(request, "index.html", { 'experiences': experiences })
