@@ -2,22 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Test Test</title>
+    <title>Resume Builder</title>
 </head>
 <body>
 
-<h1>Test Test</h1>
+<h1>Hello</h1>
 
 <ul>
     {% for experience in experiences %}
         <li>
             <h2>{{ experience.title }}</h2>
             <p>{{ experience.startmonth }}/{{ experience.startyear }} - {{ experience.endmonth }}/{{ experience.startyear }}
-                {% if experience.ongoing %} | Ongoing{% endif %}</p>
+                {% if experience.current %} | Ongoing{% endif %}</p>
             <p>{{ experience.description }}</p>
+            <a href="deleteexperience/{{experience.id}}/">Delete Experience</a>
         </li>
     {% endfor %}
 </ul>
+
+<form method="post" action="{% url 'addexperience' %}">
+    {% csrf_token %}
+    {{ experienceform.as_p }}
+    <button type="submit">Add</button>
+</form>
 
 </body>
 </html>
