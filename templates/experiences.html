@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiences</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+<a href="/">Back to Home</a>
+
+<h1>All Experiences</h1>
+
+<ul>
+    {% for experience in experiences %}
+        <li>
+            <h2>{{ experience.title }}</h2>
+            <p>{{ experience.startdate }} -
+            {% if experience.current %}
+                Present
+            {% else %}
+                {{ experience.enddate }}
+            {% endif %}
+            </p>
+            <p>{{ experience.description }}</p>
+            <a href="deleteexperience/{{experience.id}}/">Delete Experience</a>
+        </li>
+    {% endfor %}
+</ul>
+
+<form method="post" action="{% url 'addexperience' %}">
+    {% csrf_token %}
+    {{ experienceform.as_p }}
+    <button type="submit">Add</button>
+</form>
+
+</body>
+
+<script src="{% static 'script.js' %}"></script>
+
+</html>

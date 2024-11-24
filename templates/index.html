@@ -4,33 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Resume Builder</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body>
 
-<h1>Hello</h1>
+<h1>Welcome</h1>
 
-<ul>
-    {% for experience in experiences %}
-        <li>
-            <h2>{{ experience.title }}</h2>
-            <p>{{ experience.startdate }} -
-            {% if experience.current %}
-                Present
-            {% else %}
-                {{ experience.enddate }}
-            {% endif %}
-            </p>
-            <p>{{ experience.description }}</p>
-            <a href="deleteexperience/{{experience.id}}/">Delete Experience</a>
-        </li>
-    {% endfor %}
-</ul>
-
-<form method="post" action="{% url 'addexperience' %}">
-    {% csrf_token %}
-    {{ experienceform.as_p }}
-    <button type="submit">Add</button>
-</form>
+<p><a href="experiences">View and Edit Experiences</a></p>
+<p><a href="skills">View and Edit Skills</a></p>
 
 </body>
 

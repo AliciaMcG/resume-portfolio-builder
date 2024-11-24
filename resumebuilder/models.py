@@ -9,3 +9,6 @@ class Experience(models.Model):
     enddate = models.DateField(null=True, blank=True)
     current = models.BooleanField()
     description = models.TextField(max_length=500)
+
+class Skill(models.Model):
+    title = models.CharField(max_length=100)

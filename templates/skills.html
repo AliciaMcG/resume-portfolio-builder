@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Skills</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+<a href="/">Back to Home</a>
+
+<h1>All Skills</h1>
+
+<ul>
+    {% for skill in skills %}
+        <li>
+            <h2>{{ skill.title }}</h2>
+            <a href="deleteskill/{{skill.id}}/">Delete Skill</a>
+        </li>
+    {% endfor %}
+</ul>
+
+<form method="post" action="{% url 'addskill' %}">
+    {% csrf_token %}
+    {{ skillform.as_p }}
+    <button type="submit">Add</button>
+</form>
+
+</body>
+</html>
