@@ -9,4 +9,8 @@ urlpatterns = [
     path('addskill/', views.addSkill, name='addskill'),
     path('deleteexperience/<int:id>/', views.deleteExperience, name='deleteexperience'),
     path('deleteskill/<int:id>/', views.deleteSkill, name='deleteskill'),
+    path('editskill/<int:id>/', views.editSkill, name='editskill'),
+    path('editexperience/<int:id>/', views.editExperience, name='editexperience'),
+    path('skilledit/<int:id>/', views.skillEdit, name='skilledit'),
+    path('experienceedit/<int:id>/', views.experienceEdit, name='experienceedit'),
 ]

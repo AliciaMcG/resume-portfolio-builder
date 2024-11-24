@@ -47,3 +47,37 @@ def deleteExperience(request, id):
 def deleteSkill(request, id):
     Skill.objects.get(pk=id).delete()
     return redirect(skills)
+
+def editExperience(request, id):
+    experience = Experience.objects.get(pk=id)
+    experienceform = ExperienceForm(instance=experience)
+    return render(request, "editexperience.html", { 'experience': experience, 'experienceform': experienceform })
+
+def editSkill(request, id):
+    skill = Skill.objects.get(pk=id)
+    skillform = SkillForm(instance=skill)
+    return render(request, "editskill.html", { 'skill': skill, 'skillform': skillform })
+
+def experienceEdit(request, id):
+    experience = Experience.objects.get(pk=id)
+    experienceform = ExperienceForm(request.POST)
+    if experienceform.is_valid():
+        experience.title = experienceform.cleaned_data['title']
+        experience.description = experienceform.cleaned_data['description']
+        experience.startdate = experienceform.cleaned_data['startdate']
+        experience.enddate = experienceform.cleaned_data['enddate']
+        experience.current = experienceform.cleaned_data['current']
+        experience.save()
+        return redirect(experiences)
+    else:
+        return HttpResponse("Invalid")
+
+def skillEdit(request, id):
+    skill = Skill.objects.get(pk=id)
+    skillform = SkillForm(request.POST)
+    if skillform.is_valid():
+        skill.title = skillform.cleaned_data['title']
+        skill.save()
+        return redirect(skills)
+    else:
+        return HttpResponse("Invalid")

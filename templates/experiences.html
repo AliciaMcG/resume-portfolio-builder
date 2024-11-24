@@ -24,10 +24,12 @@
             {% endif %}
             </p>
             <p>{{ experience.description }}</p>
-            <a href="deleteexperience/{{experience.id}}/">Delete Experience</a>
+            <a href="editexperience/{{experience.id}}/">Edit Experience</a>
         </li>
     {% endfor %}
 </ul>
+
+<h1>Add Experience</h1>
 
 <form method="post" action="{% url 'addexperience' %}">
     {% csrf_token %}

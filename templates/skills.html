@@ -16,10 +16,12 @@
     {% for skill in skills %}
         <li>
             <h2>{{ skill.title }}</h2>
-            <a href="deleteskill/{{skill.id}}/">Delete Skill</a>
+            <a href="editskill/{{skill.id}}/">Edit Skill</a>
         </li>
     {% endfor %}
 </ul>
+
+<h1>Add Skill</h1>
 
 <form method="post" action="{% url 'addskill' %}">
     {% csrf_token %}

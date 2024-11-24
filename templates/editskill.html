@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Skill</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+<a href="/skills">Back to Skills</a>
+
+<h1>Edit Skill</h1>
+
+<h2>{{ skill.title }}</h2>
+<a href="/deleteskill/{{skill.id}}/">Delete Skill</a>
+
+<form method="post" action="{% url 'skilledit' skill.id %}">
+    {% csrf_token %}
+    {{ skillform.as_p }}
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>
