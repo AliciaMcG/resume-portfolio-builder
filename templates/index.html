@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +13,13 @@
     {% for experience in experiences %}
         <li>
             <h2>{{ experience.title }}</h2>
-            <p>{{ experience.startmonth }}/{{ experience.startyear }} - {{ experience.endmonth }}/{{ experience.startyear }}
-                {% if experience.current %} | Ongoing{% endif %}</p>
+            <p>{{ experience.startdate }} -
+            {% if experience.current %}
+                Present
+            {% else %}
+                {{ experience.enddate }}
+            {% endif %}
+            </p>
             <p>{{ experience.description }}</p>
             <a href="deleteexperience/{{experience.id}}/">Delete Experience</a>
         </li>
@@ -27,4 +33,7 @@
 </form>
 
 </body>
+
+<script src="{% static 'script.js' %}"></script>
+
 </html>

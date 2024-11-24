@@ -6,10 +6,6 @@ from django.utils import timezone
 class Experience(models.Model):
     title = models.CharField(max_length=100)
     startdate = models.DateField()
-    enddate = models.DateField()
-    # startyear = models.IntegerField()
-    # startmonth = models.IntegerField()
-    # endyear = models.IntegerField()
-    # endmonth = models.IntegerField()
+    enddate = models.DateField(null=True, blank=True)
     current = models.BooleanField()
     description = models.TextField(max_length=500)

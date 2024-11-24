@@ -1,4 +1,4 @@
-from http.client import HTTPResponse
+from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -18,7 +18,7 @@ def addExperience(request):
     if experienceform.is_valid():
         experienceform.save()
     else:
-        return HTTPResponse("Invalid")
+        return HttpResponse("Invalid")
 
     return redirect(index)
 
