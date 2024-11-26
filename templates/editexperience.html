@@ -10,23 +10,23 @@
 
 <a href="/experiences">Back to Experiences</a>
 
-<h1>Edit Experience</h1>
+<h2>Edit {{ experience.title }} Experience</h2>
 
-<h2>{{ experience.title }}</h2>
-<p>{{ experience.startdate }} -
-    {% if experience.current %}
-        Present
-    {% else %}
-        {{ experience.enddate }}
-    {% endif %}
-</p>
-<p>{{ experience.description }}</p>
-<a href="/deleteexperience/{{experience.id}}/">Delete Experience</a>
+{#<h3>{{ experience.title }}</h3>#}
+{#<p>{{ experience.startdate }} -#}
+{#    {% if experience.current %}#}
+{#        Present#}
+{#    {% else %}#}
+{#        {{ experience.enddate }}#}
+{#    {% endif %}#}
+{#</p>#}
+{#<p>{{ experience.description }}</p>#}
+{#<a href="/deleteexperience/{{experience.id}}/">Delete Experience</a>#}
 
 <form method="post" action="{% url 'experienceedit' experience.id %}">
     {% csrf_token %}
     {{ experienceform.as_p }}
-    <button type="submit">Submit</button>
+    <button type="submit">Make Changes</button>
 </form>
 
 </body>

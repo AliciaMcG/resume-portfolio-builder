@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jobs</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+<a href="/">Back to Home</a>
+
+<h1>Jobs</h1>
+
+<br>
+
+<h2>Saved Jobs</h2>
+
+<ul>
+    {% for job in jobs %}
+        <li>
+            <h3>{{ job.title }}</h3>
+            {% if job.link != null %}
+                <p>LINK: {{ job.link }}</p>
+            {% endif %}
+
+            <p>ASSOCIATED SKILLS:</p>
+            <ul>
+                {% for skill in job.skills.all %}
+                    <li>{{ skill.title }}</li>
+                {% endfor %}
+            </ul>
+
+            {% if job.notes != null %}
+                <p>NOTES: {{ job.notes }}</p>
+            {% endif %}
+
+            <a href="editjob/{{job.id}}/">Edit Job</a>
+        </li>
+    {% endfor %}
+
+</ul>
+
+<hr>
+
+<h2>Save a Job</h2>
+
+<form method="post" action="{% url 'addjob' %}">
+    {% csrf_token %}
+    {{ jobform.as_p }}
+    <button type="submit">Save Job</button>
+</form>
+
+</body>
+</html>

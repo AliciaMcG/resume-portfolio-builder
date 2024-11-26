@@ -10,23 +10,29 @@
 
 <a href="/">Back to Home</a>
 
-<h1>All Skills</h1>
+<h1>Skills</h1>
+
+<br>
+
+<h2>Saved Skills</h2>
 
 <ul>
     {% for skill in skills %}
         <li>
-            <h2>{{ skill.title }}</h2>
+            <h3>{{ skill.title }}</h3>
             <a href="editskill/{{skill.id}}/">Edit Skill</a>
         </li>
     {% endfor %}
 </ul>
 
-<h1>Add Skill</h1>
+<hr>
+
+<h2>Add Skill</h2>
 
 <form method="post" action="{% url 'addskill' %}">
     {% csrf_token %}
     {{ skillform.as_p }}
-    <button type="submit">Add</button>
+    <button type="submit">Add Skill</button>
 </form>
 
 </body>

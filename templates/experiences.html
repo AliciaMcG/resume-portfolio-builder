@@ -10,18 +10,26 @@
 
 <a href="/">Back to Home</a>
 
-<h1>All Experiences</h1>
+<h1>Experiences</h1>
 
+<br>
+
+<h2>Saved Experiences</h2>
 <ul>
     {% for experience in experiences %}
         <li>
-            <h2>{{ experience.title }}</h2>
+            <h3>{{ experience.title }}</h3>
             <p>{{ experience.startdate }} -
             {% if experience.current %}
                 Present
             {% else %}
                 {{ experience.enddate }}
             {% endif %}
+            <p>
+                {% for skill in experience.skills.all %}
+                    {{ skill.title }}
+                {% endfor %}
+            </p>
             </p>
             <p>{{ experience.description }}</p>
             <a href="editexperience/{{experience.id}}/">Edit Experience</a>
@@ -29,12 +37,14 @@
     {% endfor %}
 </ul>
 
-<h1>Add Experience</h1>
+<hr>
+
+<h2>Add Experience</h2>
 
 <form method="post" action="{% url 'addexperience' %}">
     {% csrf_token %}
     {{ experienceform.as_p }}
-    <button type="submit">Add</button>
+    <button type="submit">Add Experience</button>
 </form>
 
 </body>

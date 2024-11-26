@@ -10,15 +10,15 @@
 
 <a href="/skills">Back to Skills</a>
 
-<h1>Edit Skill</h1>
+<h2>Edit {{ skill.title }} Skill</h2>
 
-<h2>{{ skill.title }}</h2>
-<a href="/deleteskill/{{skill.id}}/">Delete Skill</a>
+{#<h2>{{ skill.title }}</h2>#}
+{#<a href="/deleteskill/{{skill.id}}/">Delete Skill</a>#}
 
 <form method="post" action="{% url 'skilledit' skill.id %}">
     {% csrf_token %}
     {{ skillform.as_p }}
-    <button type="submit">Submit</button>
+    <button type="submit">Make Changes</button>
 </form>
 
 </body>
