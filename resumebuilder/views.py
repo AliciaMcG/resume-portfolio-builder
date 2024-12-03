@@ -3,12 +3,44 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from resumebuilder.models import Experience, Skill, Job
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from resumebuilder.forms import ExperienceForm, SkillForm, JobForm
-
 
 # Create your views here.
 def index(request):
-    return render(request, "index.html")
+    signupform = UserCreationForm()
+    return render(request, "index.html", {'signupform':signupform})
+
+def signin(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    if not User.objects.filter(username=username).exists():
+        return HttpResponse("Invalid username")
+    user = authenticate(username=username, password=password)
+    if user is None:
+        return HttpResponse("Invalid password")
+    login(request, user)
+    return redirect('profile')
+
+
+def signup(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    if User.objects.filter(username=username).exists():
+        return HttpResponse("Username is taken")
+    user = User.objects.create_user(username=username)
+    user.set_password(password)
+    user.save()
+
+    return redirect('index')
+
+
+def profile(request):
+    return render(request, "profile.html")
 
 def experiences(request):
     experiences = Experience.objects.all()
