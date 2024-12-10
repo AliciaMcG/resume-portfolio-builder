@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume for {{ job.title }}</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+<h2>Experience</h2>
+
+{% for experience in experiences %}
+    <h3>{{ experience.title }}</h3>
+    <p>{{ experience.startdate }} -
+        {% if experience.current %}
+            Present
+        {% else %}
+            {{ experience.enddate }}
+        {% endif %}
+    <p>
+        {% for skill in experience.skills.all %}
+            {{ skill.title }}
+        {% endfor %}
+    </p>
+    <p>{{ experience.description }}</p>
+    <br>
+{% endfor %}
+
+<br>
+<hr>
+<br>
+
+<h2>Portfolio</h2>
+
+</body>
+</html>

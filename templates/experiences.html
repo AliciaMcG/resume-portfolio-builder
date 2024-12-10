@@ -25,12 +25,11 @@
             {% else %}
                 {{ experience.enddate }}
             {% endif %}
-            <p>
+            <ul>
                 {% for skill in experience.skills.all %}
-                    {{ skill.title }}
+                    <li>{{ skill.title }}</li>
                 {% endfor %}
-            </p>
-            </p>
+            </ul>
             <p>{{ experience.description }}</p>
             <a href="editexperience/{{experience.id}}/">Edit Experience</a>
         </li>

@@ -30,6 +30,11 @@ class Job(models.Model):
     def __str__(self):
         return self.title
 
+class PortfolioPiece(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField(max_length=500)
+    skills = models.ManyToManyField(Skill, blank=True)
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     skills = models.ManyToManyField(Skill, blank=True, related_name='profile')

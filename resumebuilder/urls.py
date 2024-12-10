@@ -22,4 +22,5 @@ urlpatterns = [
     path('skilledit/<int:id>/', views.skillEdit, name='skilledit'),
     path('experienceedit/<int:id>/', views.experienceEdit, name='experienceedit'),
     path('jobedit/<int:id>/', views.jobEdit, name='jobedit'),
+    path('buildresume/<int:id>/', views.buildResume, name='buildResume'),
 ]

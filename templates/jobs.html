@@ -35,7 +35,8 @@
                 <p>NOTES: {{ job.notes }}</p>
             {% endif %}
 
-            <a href="editjob/{{job.id}}/">Edit Job</a>
+            <p><a href="editjob/{{job.id}}/">Edit Job</a></p>
+            <p><a href="buildresume/{{ job.id }}/">BUILD RESUME</a></p>
         </li>
     {% endfor %}
 

@@ -228,3 +228,15 @@ def jobEdit(request, id):
         return redirect(jobs)
     else:
         return HttpResponse("Invalid")
+
+@login_required(login_url='index')
+def buildResume(request, id):
+    job = Job.objects.get(pk=id)
+    experiences = []
+    for skill in job.skills.all():
+        relevantexperience = Experience.objects.filter(skills=skill)
+        for experience in relevantexperience:
+            if experience not in experiences:
+                experiences.append(experience)
+    experiences.sort(key=lambda experience: experience.startdate, reverse=True)
+    return render(request, 'buildresume.html', { 'experiences': experiences })
