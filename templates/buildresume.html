@@ -8,6 +8,9 @@
 </head>
 <body>
 
+<a href="/jobs">Back to Jobs</a> | <a href="/">Back to Home</a>
+<hr><br>
+
 <h2>Experience</h2>
 
 {% for experience in experiences %}
@@ -18,11 +21,11 @@
         {% else %}
             {{ experience.enddate }}
         {% endif %}
-    <p>
+    <ul>
         {% for skill in experience.skills.all %}
-            {{ skill.title }}
+            <li>{{ skill.title }}</li>
         {% endfor %}
-    </p>
+    </ul>
     <p>{{ experience.description }}</p>
     <br>
 {% endfor %}
@@ -32,6 +35,17 @@
 <br>
 
 <h2>Portfolio</h2>
+
+{% for piece in pieces %}
+    <h3>{{ piece.title }}</h3>
+    <ul>
+        {% for skill in piece.skills.all %}
+            <li>{{ skill.title }}</li>
+        {% endfor %}
+    </ul>
+    <p>{{ piece.description }}</p>
+    <br>
+{% endfor %}
 
 </body>
 </html>

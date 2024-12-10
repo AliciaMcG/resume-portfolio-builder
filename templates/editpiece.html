@@ -8,9 +8,10 @@
 </head>
 <body>
 
-<a href="/experiences">Back to Experiences</a>
+<a href="/experiences">Back to Portfolio</a>
 
-<h2>Edit {{ experience.title }} Experience</h2>
+<h2>Edit {{ experience.title }} Piece</h2>
+<a href="/deletepiece/{{ piece.id }}/">Delete Piece</a>
 
 <form method="post" action="{% url 'pieceedit' piece.id %}">
     {% csrf_token %}

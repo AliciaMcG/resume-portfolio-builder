@@ -16,15 +16,16 @@
 
 <h2>Saved Pieces</h2>
 <ul>
-    {% for piece in pieces %}
+    {% for piece in pieces.all %}
         <li>
             <h3>{{ piece.title }}</h3>
             <ul>
-                {% for skills in piece.skills.all %}
+                {% for skill in piece.skills.all %}
                     <li>{{ skill.title }}</li>
                 {% endfor %}
             </ul>
             <p>{{ piece.description }}</p>
+        <a href="editpiece/{{ piece.id }}/">Edit Piece</a>
         </li>
     {% endfor %}
 </ul>
@@ -35,6 +36,7 @@
 
 <form method="post" action="{% url 'addpiece' %}">
     {% csrf_token %}
+    {{ pieceform.as_p }}
     <button type="submit">Add Piece</button>
 </form>
 

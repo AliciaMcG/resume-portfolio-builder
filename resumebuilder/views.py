@@ -277,11 +277,20 @@ def pieceEdit(request, id):
 @login_required(login_url='index')
 def buildResume(request, id):
     job = Job.objects.get(pk=id)
+
     experiences = []
+    pieces = []
     for skill in job.skills.all():
         relevantexperience = Experience.objects.filter(skills=skill)
+        relevantpiece = PortfolioPiece.objects.filter(skills=skill)
+
         for experience in relevantexperience:
             if experience not in experiences:
                 experiences.append(experience)
+        for piece in relevantpiece:
+            if piece not in pieces:
+                pieces.append(piece)
     experiences.sort(key=lambda experience: experience.startdate, reverse=True)
-    return render(request, 'buildresume.html', { 'experiences': experiences })
+    pieces.sort(key=lambda piece: piece.title, reverse=True)
+
+    return render(request, 'buildresume.html', { 'experiences': experiences, 'pieces': pieces })
