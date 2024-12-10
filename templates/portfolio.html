@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+<a href="profile">Back to Home</a>
+
+<h1>Portfolio</h1>
+
+<br>
+
+<h2>Saved Pieces</h2>
+<ul>
+    {% for piece in pieces %}
+        <li>
+            <h3>{{ piece.title }}</h3>
+            <ul>
+                {% for skills in piece.skills.all %}
+                    <li>{{ skill.title }}</li>
+                {% endfor %}
+            </ul>
+            <p>{{ piece.description }}</p>
+        </li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<h2>Add Portfolio Piece</h2>
+
+<form method="post" action="{% url 'addpiece' %}">
+    {% csrf_token %}
+    <button type="submit">Add Piece</button>
+</form>
+
+</body>
+</html>

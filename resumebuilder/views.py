@@ -4,13 +4,13 @@ from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from resumebuilder.models import Experience, Skill, Job, Profile
+from resumebuilder.models import Experience, Skill, Job, Profile, PortfolioPiece
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from resumebuilder.forms import ExperienceForm, SkillForm, JobForm
+from resumebuilder.forms import ExperienceForm, SkillForm, JobForm, PortfolioPieceForm
 
 # Create your views here.
 def index(request):
@@ -84,6 +84,14 @@ def jobs(request):
     return render(request, "jobs.html", { 'jobs': jobs, 'jobform': jobform })
 
 @login_required(login_url='index')
+def portfolio(request):
+    currentuser = request.user
+    thisprofile = Profile.objects.get(user=currentuser)
+    pieces = thisprofile.portfoliopieces
+    pieceform = PortfolioPieceForm(profile=thisprofile)
+    return render(request, "portfolio.html", { 'pieces': pieces, 'pieceform': pieceform })
+
+@login_required(login_url='index')
 def addExperience(request):
     experienceform = ExperienceForm(request.POST)
 
@@ -127,6 +135,18 @@ def addJob(request):
     return redirect(jobs)
 
 @login_required(login_url='index')
+def addPiece(request):
+    pieceform = PortfolioPieceForm(request.POST)
+
+    if pieceform.is_valid():
+        newpiece = pieceform.save()
+        profile = Profile.objects.get(user=request.user)
+        profile.portfoliopieces.add(PortfolioPiece.objects.get(pk=newpiece.pk))
+    else:
+        return HttpResponse("Invalid")
+    return redirect(portfolio)
+
+@login_required(login_url='index')
 def deleteExperience(request, id):
     Experience.objects.get(pk=id).delete()
     return redirect(experiences)
@@ -149,6 +169,11 @@ def deleteJob(request, id):
     return redirect(jobs)
 
 @login_required(login_url='index')
+def deletePiece(request, id):
+    PortfolioPiece.objects.get(pk=id).delete()
+    return redirect(portfolio)
+
+@login_required(login_url='index')
 def editExperience(request, id):
     experience = Experience.objects.get(pk=id)
     profile = Profile.objects.get(user=request.user)
@@ -167,6 +192,13 @@ def editJob(request, id):
     profile = Profile.objects.get(user=request.user)
     jobform = JobForm(instance=job, profile=profile)
     return render(request, "editjob.html", { 'job': job, 'jobform': jobform })
+
+@login_required(login_url='index')
+def editPiece(request, id):
+    piece = PortfolioPiece.objects.get(pk=id)
+    profile = Profile.objects.get(user=request.user)
+    pieceform = PortfolioPieceForm(instance=piece, profile=profile)
+    return render(request, "editpiece.html", { 'piece': piece, 'pieceform': pieceform })
 
 @login_required(login_url='index')
 def experienceEdit(request, id):
@@ -226,6 +258,19 @@ def jobEdit(request, id):
         job.skills.set(jobform.cleaned_data['skills'])
         job.save()
         return redirect(jobs)
+    else:
+        return HttpResponse("Invalid")
+
+@login_required(login_url='index')
+def pieceEdit(request, id):
+    piece = PortfolioPiece.objects.get(pk=id)
+    pieceform = PortfolioPieceForm(request.POST)
+    if pieceform.is_valid():
+        piece.title = pieceform.cleaned_data['title']
+        piece.description = pieceform.cleaned_data['description']
+        piece.skills.set(pieceform.cleaned_data['skills'])
+        piece.save()
+        return redirect(portfolio)
     else:
         return HttpResponse("Invalid")
 

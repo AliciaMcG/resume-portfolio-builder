@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Portfolio Piece</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+
+<a href="/experiences">Back to Experiences</a>
+
+<h2>Edit {{ experience.title }} Experience</h2>
+
+<form method="post" action="{% url 'pieceedit' piece.id %}">
+    {% csrf_token %}
+    {{ pieceform.as_p }}
+    <button type="submit">Make Changes</button>
+</form>
+
+</body>
+</html>
