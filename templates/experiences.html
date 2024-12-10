@@ -16,7 +16,7 @@
 
 <h2>Saved Experiences</h2>
 <ul>
-    {% for experience in experiences %}
+    {% for experience in experiences.all %}
         <li>
             <h3>{{ experience.title }}</h3>
             <p>{{ experience.startdate }} -

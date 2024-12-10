@@ -17,7 +17,7 @@
 <h2>Saved Skills</h2>
 
 <ul>
-    {% for skill in skills %}
+    {% for skill in skills.all %}
         <li>
             <h3>{{ skill.title }}</h3>
             <a href="editskill/{{skill.id}}/">Edit Skill</a>

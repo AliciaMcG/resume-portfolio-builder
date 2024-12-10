@@ -17,7 +17,7 @@
 <h2>Saved Jobs</h2>
 
 <ul>
-    {% for job in jobs %}
+    {% for job in jobs.all %}
         <li>
             <h3>{{ job.title }}</h3>
             {% if job.link != null %}

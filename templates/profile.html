@@ -8,11 +8,23 @@
 </head>
 <body>
 
-<h1>Welcome</h1>
+<h1>Welcome {{ profile.user.username }}</h1>
+<a href="signout">Logout</a>
+<br>
+<hr>
+<br>
 
-<p><a href="experiences">View and Edit Experiences</a></p>
-<p><a href="skills">View and Edit Skills</a></p>
-<p><a href="jobs">View and Edit Saved Jobs</a></p>
+<h3>Experiences</h3>
+<p><a href="experiences">&emsp;View and Edit</a></p>
+<p>&emsp;{{ profile.experiences.all|length }} saved experiences</p>
+
+<h3>Skills</h3>
+<p><a href="skills">&emsp;View and Edit</a></p>
+<p>&emsp;{{ profile.skills.all|length }} saved skills</p>
+
+<h3>Saved Jobs</h3>
+<p><a href="jobs">&emsp;View and Edit</a></p>
+<p>&emsp;{{ profile.jobs.all|length }} saved jobs</p>
 
 </body>
 

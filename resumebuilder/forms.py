@@ -1,7 +1,8 @@
 from django import forms
-from .models import Experience, Skill, Job
+from .models import Experience, Skill, Job, Profile
 from django.utils import timezone
 from django.forms.widgets import CheckboxSelectMultiple
+
 
 class ExperienceForm(forms.ModelForm):
     class Meta:
@@ -10,16 +11,19 @@ class ExperienceForm(forms.ModelForm):
         # widgets = {
         #     'skill': CheckboxSelectMultiple(),
         # }
-
-    skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all())
+        skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.none())
 
     def __init__(self, *args, **kwargs):
+        profile = kwargs.pop('profile', None)
         super().__init__(*args, **kwargs)
         if self.instance.current == True:
             self.fields['enddate'].disabled = True
             self.fields['enddate'].required = False
-
+        if profile:
+            self.fields['skills'].queryset = profile.skills.all()
         self.fields['skills'].required = False
+        if not self.fields['skills']:
+            self.fields['skills'].disabled = True
 
     def save(self, commit=True):
         instance = super().save(commit=False)
@@ -42,12 +46,19 @@ class JobForm(forms.ModelForm):
     class Meta:
         model = Job
         fields = '__all__'
+        skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.none())
 
     def __init__(self, *args, **kwargs):
+        profile = kwargs.pop('profile', None)
         super().__init__(*args, **kwargs)
         self.fields['skills'].required = False
         self.fields['link'].required = False
         self.fields['notes'].required = False
+        if profile:
+            self.fields['skills'].queryset = profile.skills.all()
+        self.fields['skills'].required = False
+        if not self.fields['skills']:
+            self.fields['skills'].disabled = True
 
     def save(self, commit=True):
         instance = super().save(commit=False)

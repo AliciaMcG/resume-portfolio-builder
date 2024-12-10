@@ -12,8 +12,8 @@
 
 <h2>Edit {{ skill.title }} Skill</h2>
 
-{#<h2>{{ skill.title }}</h2>#}
-{#<a href="/deleteskill/{{skill.id}}/">Delete Skill</a>#}
+<h2>{{ skill.title }}</h2>
+<a href="/deleteskill/{{skill.id}}/">Delete Skill</a>
 
 <form method="post" action="{% url 'skilledit' skill.id %}">
     {% csrf_token %}

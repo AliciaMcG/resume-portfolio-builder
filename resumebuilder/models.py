@@ -18,8 +18,23 @@ class Experience(models.Model):
     description = models.TextField(max_length=500)
     skills = models.ManyToManyField(Skill, blank=True)
 
+    def __str__(self):
+        return self.title
+
 class Job(models.Model):
     title = models.CharField(max_length=100)
     link = models.URLField(max_length=500, null=True)
     notes = models.TextField(max_length=1000, null=True)
     skills = models.ManyToManyField(Skill, blank=True)
+
+    def __str__(self):
+        return self.title
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    skills = models.ManyToManyField(Skill, blank=True, related_name='profile')
+    experiences = models.ManyToManyField(Experience, blank=True, related_name='profile')
+    jobs = models.ManyToManyField(Job, blank=True, related_name='profile')
+
+    def __str__(self):
+        return self.user.username
