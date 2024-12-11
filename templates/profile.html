@@ -39,10 +39,30 @@
 
 <h2>Development Tools</h2><br>
 
-<h4>Key Skills</h4>
+<h3>Key Skills</h3>
 <p>These skills are in a lot of your saved jobs. Developing these skills could be beneficial for a lot of opportunities that interest you.</p>
 <ul>
 {% for skill in keyskills %}
+    {% if skill %}
+        <li>{{ skill }}</li>
+    {% endif %}
+{% endfor %}
+</ul><br>
+
+<h3>Weak Skills</h3>
+<p>These skills are in a lot of your saved jobs, but you don't have many saved experiences with them compared to saved jobs.</p>
+<ul>
+{% for skill in weakskills %}
+    {% if skill %}
+        <li>{{ skill }}</li>
+    {% endif %}
+{% endfor %}
+</ul><br>
+
+<h3>Strong Skills</h3>
+<p>These skills are in a lot of your saved experiences and portfolio pieces. You have a lot of experience doing these things.</p>
+<ul>
+{% for skill in strongskills %}
     {% if skill %}
         <li>{{ skill }}</li>
     {% endif %}

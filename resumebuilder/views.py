@@ -57,8 +57,10 @@ def profile(request):
     thisprofile = Profile.objects.get(user=currentuser)
 
     keyskills = findKeySkills(currentuser)
+    weakskills = findWeakSkills(currentuser)
+    strongskills = findStrongSkills(currentuser)
 
-    return render(request, "profile.html", {'profile': thisprofile, 'keyskills': keyskills})
+    return render(request, "profile.html", {'profile': thisprofile, 'keyskills': keyskills, 'weakskills': weakskills, 'strongskills': strongskills})
 
 @login_required(login_url='index')
 def experiences(request):
@@ -312,29 +314,91 @@ def buildResume(request, id):
 
     return render(request, 'buildresume.html', { 'experiences': experiences, 'pieces': sortpieces })
 
-def findKeySkills(user):
+def skillSortByJobAppearance(user):
     profile = Profile.objects.get(user=user)
     jobs = profile.jobs.all()
     skills = profile.skills.all()
     priority = []
-    numkey = 3
-    keyskills = [None] * numkey
+    priorityskills = []
 
     for skill in skills:
-        count = 0
-        for job in jobs:
-            if skill in job.skills.all():
-                count += 1
+        count = sum(skill in job.skills.all() for job in jobs)
         priority.append(count)
-    if numkey > profile.skills.all().count():
-        numkey = profile.skills.all().count()
 
-    for i in range(numkey):
+    for skill in skills:
         index = priority.index(max(priority))
         if priority[index] == 0:
+            return priorityskills
+        else:
+            priorityskills.append(skills[index])
+        priority[index] = -1
+    return priorityskills
+
+def skillSortByExperienceAppearance(user):
+    profile = Profile.objects.get(user=user)
+    skills = profile.skills.all()
+    experiences = profile.experiences.all()
+    portfolio = profile.portfoliopieces.all()
+    sortskill = []
+    priority = []
+
+    for skill in skills:
+        inexperience = sum(skill in experience.skills.all() for experience in experiences) + sum(skill in piece.skills.all() for piece in portfolio)
+        priority.append(inexperience)
+    for skill in skills:
+        index = priority.index(max(priority))
+        sortskill.append(skills[index])
+        priority[index] = -1
+    return sortskill
+
+def findKeySkills(user):
+    profile = Profile.objects.get(user=user)
+    jobs = profile.jobs.all()
+    skills = skillSortByJobAppearance(user)
+    keyskills = []
+
+    numkey = 3
+    if numkey > len(skills):
+        numkey = len(skills)
+
+    for i in range(numkey):
+        if sum(skills[i] in job.skills.all() for job in jobs) == 0:
             keyskills[i] = None
         else:
-            keyskills.append(skills[index])
-        priority[index] = -1
+            keyskills.append(skills[i])
 
     return keyskills
+
+def findWeakSkills(user):
+    profile = Profile.objects.get(user=user)
+    jobs = profile.jobs.all()
+    experiences = profile.experiences.all()
+    portfolio = profile.portfoliopieces.all()
+    skills = skillSortByJobAppearance(user)
+    numweak = 3
+    if numweak > len(skills):
+        numweak = len(skills)
+    weakskills = [None] * numweak
+    priority = []
+
+    for skill in skills:
+        injobs = sum(skill in job.skills.all() for job in jobs)
+        inexperience = sum(skill in experience.skills.all() for experience in experiences) + sum(skill in piece.skills.all() for piece in portfolio)
+        priority.append(injobs - inexperience)
+    for i in range(numweak):
+        index = priority.index(min(priority))
+        weakskills.append(skills[index])
+        priority[index] = max(priority) + 1
+    return weakskills
+
+
+def findStrongSkills(user):
+    skills = skillSortByExperienceAppearance(user)
+    numstrong = 3
+    if numstrong > len(skills):
+        numstrong = len(skills)
+    strongskills = [None] * numstrong
+
+    for i in range(numstrong):
+        strongskills[i] = skills[i]
+    return strongskills
