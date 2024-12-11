@@ -55,7 +55,10 @@ def profile(request):
     if not hasattr(currentuser, 'profile'):
         Profile.objects.create(user=currentuser)
     thisprofile = Profile.objects.get(user=currentuser)
-    return render(request, "profile.html", {'profile': thisprofile})
+
+    keyskills = findKeySkills(currentuser)
+
+    return render(request, "profile.html", {'profile': thisprofile, 'keyskills': keyskills})
 
 @login_required(login_url='index')
 def experiences(request):
@@ -291,6 +294,47 @@ def buildResume(request, id):
             if piece not in pieces:
                 pieces.append(piece)
     experiences.sort(key=lambda experience: experience.startdate, reverse=True)
-    pieces.sort(key=lambda piece: piece.title, reverse=True)
 
-    return render(request, 'buildresume.html', { 'experiences': experiences, 'pieces': pieces })
+    sortpieces = []
+    similarity = []
+    for piece in pieces:
+        count = 0
+        for skill in piece.skills.all():
+            if skill in job.skills.all():
+                count += 1
+        similarity.append(count)
+    for piece in pieces:
+        index = similarity.index(max(similarity))
+        currpiece = pieces[index]
+        sortpieces.append(currpiece)
+        similarity[index] = -1
+
+
+    return render(request, 'buildresume.html', { 'experiences': experiences, 'pieces': sortpieces })
+
+def findKeySkills(user):
+    profile = Profile.objects.get(user=user)
+    jobs = profile.jobs.all()
+    skills = profile.skills.all()
+    priority = []
+    numkey = 3
+    keyskills = [None] * numkey
+
+    for skill in skills:
+        count = 0
+        for job in jobs:
+            if skill in job.skills.all():
+                count += 1
+        priority.append(count)
+    if numkey > profile.skills.all().count():
+        numkey = profile.skills.all().count()
+
+    for i in range(numkey):
+        index = priority.index(max(priority))
+        if priority[index] == 0:
+            keyskills[i] = None
+        else:
+            keyskills.append(skills[index])
+        priority[index] = -1
+
+    return keyskills

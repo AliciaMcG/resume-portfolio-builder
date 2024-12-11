@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<a href="profile">Back to Home</a>
+<a href="profile">Back to Home</a><br>
 
 <h1>Portfolio</h1>
 
@@ -19,18 +19,19 @@
     {% for piece in pieces.all %}
         <li>
             <h3>{{ piece.title }}</h3>
+            <p>{{ piece.description }}</p>
+            <p>Skills:</p>
             <ul>
                 {% for skill in piece.skills.all %}
                     <li>{{ skill.title }}</li>
                 {% endfor %}
             </ul>
-            <p>{{ piece.description }}</p>
         <a href="editpiece/{{ piece.id }}/">Edit Piece</a>
         </li>
     {% endfor %}
 </ul>
 
-<hr>
+<br><hr><br>
 
 <h2>Add Portfolio Piece</h2>
 
@@ -41,4 +42,5 @@
 </form>
 
 </body>
+<script src="{% static 'script.js' %}"></script>
 </html>

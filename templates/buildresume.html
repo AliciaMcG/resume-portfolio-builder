@@ -21,12 +21,13 @@
         {% else %}
             {{ experience.enddate }}
         {% endif %}
+    <p>{{ experience.description }}</p>
+    <p>Skills:</p>
     <ul>
         {% for skill in experience.skills.all %}
             <li>{{ skill.title }}</li>
         {% endfor %}
     </ul>
-    <p>{{ experience.description }}</p>
     <br>
 {% endfor %}
 
@@ -38,12 +39,13 @@
 
 {% for piece in pieces %}
     <h3>{{ piece.title }}</h3>
+    <p>{{ piece.description }}</p>
+    <p>Skills:</p>
     <ul>
         {% for skill in piece.skills.all %}
             <li>{{ skill.title }}</li>
         {% endfor %}
     </ul>
-    <p>{{ piece.description }}</p>
     <br>
 {% endfor %}
 

@@ -14,21 +14,40 @@
 <hr>
 <br>
 
-<h3>Experiences</h3>
-<p><a href="experiences">&emsp;View and Edit</a></p>
-<p>&emsp;{{ profile.experiences.all|length }} saved experiences</p>
+<h2>Your Information</h2><br>
 
-<h3>Portfolio</h3>
-<p><a href="portfolio">View and Edit</a></p>
-<p>&emsp;{{ profile.portfoliopieces.all|length }} saved pieces</p>
+<h3><a href="experiences">Experiences</a></h3>
+<p>{{ profile.experiences.all|length }} saved experiences</p>
+<p>&emsp;View, create, and edit your saved experiences (jobs, volunteering, etc.).</p>
+<br>
 
-<h3>Skills</h3>
-<p><a href="skills">&emsp;View and Edit</a></p>
-<p>&emsp;{{ profile.skills.all|length }} saved skills</p>
+<h3><a href="portfolio">Portfolio</a></h3>
+<p>{{ profile.portfoliopieces.all|length }} saved pieces</p>
+<p>&emsp;View, create, and edit your saved portfolio pieces.</p>
+<br>
 
-<h3>Saved Jobs</h3>
-<p><a href="jobs">&emsp;View and Edit</a></p>
-<p>&emsp;{{ profile.jobs.all|length }} saved jobs</p>
+<h3><a href="skills">Skills</a></h3>
+<p>{{ profile.skills.all|length }} saved skills</p>
+<p>&emsp;View, create, and edit your saved skills. These skills are related to your experiences, portfolio, and job, including skills you don't have but are useful for saved jobs.</p>
+<br>
+
+<h3><a href="jobs">Saved Jobs</a></h3>
+<p>{{ profile.jobs.all|length }} saved jobs</p>
+<p>&emsp;View, create, and edit job listings you're interested in. Generate tailored resumes from your data.</p>
+
+<br><br>
+
+<h2>Development Tools</h2><br>
+
+<h4>Key Skills</h4>
+<p>These skills are in a lot of your saved jobs. Developing these skills could be beneficial for a lot of opportunities that interest you.</p>
+<ul>
+{% for skill in keyskills %}
+    {% if skill %}
+        <li>{{ skill }}</li>
+    {% endif %}
+{% endfor %}
+</ul>
 
 </body>
 

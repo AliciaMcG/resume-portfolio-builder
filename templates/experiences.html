@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<a href="profile">Back to Home</a>
+<a href="profile">Back to Home</a><br>
 
 <h1>Experiences</h1>
 
@@ -25,18 +25,19 @@
             {% else %}
                 {{ experience.enddate }}
             {% endif %}
+            <p>{{ experience.description }}</p>
+            <p>Skills:</p>
             <ul>
                 {% for skill in experience.skills.all %}
                     <li>{{ skill.title }}</li>
                 {% endfor %}
             </ul>
-            <p>{{ experience.description }}</p>
             <a href="editexperience/{{experience.id}}/">Edit Experience</a>
         </li>
     {% endfor %}
 </ul>
 
-<hr>
+<br><hr><br>
 
 <h2>Add Experience</h2>
 
