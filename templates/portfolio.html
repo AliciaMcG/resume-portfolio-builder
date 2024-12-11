@@ -19,6 +19,9 @@
     {% for piece in pieces.all %}
         <li>
             <h3>{{ piece.title }}</h3>
+            {% if piece.image %}
+                <img src="media/{{ piece.image }}/">
+            {% endif %}
             <p>{{ piece.description }}</p>
             <p>Skills:</p>
             <ul>
@@ -26,7 +29,7 @@
                     <li>{{ skill.title }}</li>
                 {% endfor %}
             </ul>
-        <a href="editpiece/{{ piece.id }}/">Edit Piece</a>
+        <a href="editpiece/{{ piece.id }}">Edit Piece</a>
         </li>
     {% endfor %}
 </ul>
@@ -35,7 +38,7 @@
 
 <h2>Add Portfolio Piece</h2>
 
-<form method="post" action="{% url 'addpiece' %}">
+<form method="post" action="{% url 'addpiece' %}" enctype="multipart/form-data">
     {% csrf_token %}
     {{ pieceform.as_p }}
     <button type="submit">Add Piece</button>

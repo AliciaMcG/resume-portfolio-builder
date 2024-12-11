@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -28,4 +30,4 @@ urlpatterns = [
     path('jobedit/<int:id>/', views.jobEdit, name='jobedit'),
     path('pieceedit/<int:id>/', views.pieceEdit, name='pieceedit'),
     path('buildresume/<int:id>/', views.buildResume, name='buildResume'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

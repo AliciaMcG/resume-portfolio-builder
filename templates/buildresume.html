@@ -39,6 +39,9 @@
 
 {% for piece in pieces %}
     <h3>{{ piece.title }}</h3>
+    {% if piece.image %}
+        <img src="/media/{{ piece.image }}/">
+    {% endif %}
     <p>{{ piece.description }}</p>
     <p>Skills:</p>
     <ul>

@@ -1,7 +1,7 @@
 from pickletools import uint1
 
 from django.http import HttpResponse
-
+import os
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from resumebuilder.models import Experience, Skill, Job, Profile, PortfolioPiece
@@ -141,7 +141,7 @@ def addJob(request):
 
 @login_required(login_url='index')
 def addPiece(request):
-    pieceform = PortfolioPieceForm(request.POST)
+    pieceform = PortfolioPieceForm(request.POST, request.FILES)
 
     if pieceform.is_valid():
         newpiece = pieceform.save()
@@ -269,11 +269,24 @@ def jobEdit(request, id):
 @login_required(login_url='index')
 def pieceEdit(request, id):
     piece = PortfolioPiece.objects.get(pk=id)
-    pieceform = PortfolioPieceForm(request.POST)
+    pieceform = PortfolioPieceForm(request.POST, request.FILES)
     if pieceform.is_valid():
         piece.title = pieceform.cleaned_data['title']
         piece.description = pieceform.cleaned_data['description']
         piece.skills.set(pieceform.cleaned_data['skills'])
+
+        if 'image' in request.FILES:
+            if piece.image:
+                oldimg = piece.image.path
+                if os.path.exists(oldimg):
+                    os.remove(oldimg)
+            piece.image = request.FILES['image']
+        if 'image-clear' in request.POST:
+            if piece.image:
+                img = piece.image.path
+                if os.path.exists(img):
+                    os.remove(img)
+            piece.image = None
         piece.save()
         return redirect(portfolio)
     else:

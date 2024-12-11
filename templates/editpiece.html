@@ -11,9 +11,12 @@
 <a href="/experiences">Back to Portfolio</a>
 
 <h2>Edit {{ experience.title }} Piece</h2>
-<a href="/deletepiece/{{ piece.id }}/">Delete Piece</a>
+<a href="/deletepiece/{{ piece.id }}/">Delete Piece</a><br>
 
-<form method="post" action="{% url 'pieceedit' piece.id %}">
+{% if piece.image %}
+    <img src="/media/{{ piece.image }}/">
+{% endif %}
+<form method="post" action="{% url 'pieceedit' piece.id %}" enctype="multipart/form-data">
     {% csrf_token %}
     {{ pieceform.as_p }}
     <button type="submit">Make Changes</button>

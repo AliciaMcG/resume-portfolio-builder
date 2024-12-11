@@ -23,8 +23,8 @@ class Experience(models.Model):
 
 class Job(models.Model):
     title = models.CharField(max_length=100)
-    link = models.URLField(max_length=500, null=True)
-    notes = models.TextField(max_length=1000, null=True)
+    link = models.URLField(max_length=500, blank=True, null=True)
+    notes = models.TextField(max_length=1000, blank=True, null=True)
     skills = models.ManyToManyField(Skill, blank=True)
 
     def __str__(self):
@@ -34,6 +34,7 @@ class PortfolioPiece(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
     skills = models.ManyToManyField(Skill, blank=True)
+    image = models.ImageField(upload_to='portfolio_pictures', blank=True)
 
     def __str__(self):
         return self.title

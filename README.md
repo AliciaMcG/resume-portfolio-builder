@@ -22,6 +22,7 @@ If you needed to install Python or Git, you'll need to restart your computer bef
 6) Generate a secret key by running `python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'` in the terminal. Copy the output.
 7) Edit the `.env` file and add a line that says `SECRET_KEY="your-secret-key-here"`. Paste the output from part 6 into 'your-secret-key-here'.
 8) On the terminal, run `python manage.py migrate`
+9) Download and install pillow. -> `python -m pip install Pillow`
 
 ## Running the App
 Run the server by clicking the play button or running `python manage.py runserver` on the terminal.
