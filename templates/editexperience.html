@@ -8,21 +8,11 @@
 </head>
 <body>
 
-<a href="/experiences">Back to Experiences</a> | <a href="/">Back to Home</a>
+<a href="/">Back to Home</a> | <a href="/experiences">Back to Experiences</a>
 
-<h2>Edit {{ experience.title }} Experience</h2>
-<a href="/deleteexperience/{{ experience.id }}/">Delete Experience</a>
-
-{#<h3>{{ experience.title }}</h3>#}
-{#<p>{{ experience.startdate }} -#}
-{#    {% if experience.current %}#}
-{#        Present#}
-{#    {% else %}#}
-{#        {{ experience.enddate }}#}
-{#    {% endif %}#}
-{#</p>#}
-{#<p>{{ experience.description }}</p>#}
-{#<a href="/deleteexperience/{{experience.id}}/">Delete Experience</a>#}
+<h2>Edit {{ experience.title }} Experience | <a class="delete" href="/deleteexperience/{{ experience.id }}/">Delete Experience</a></h2>
+<h3>EDIT</h3>
+<p><i>To select multiple skills, hold CTRL</i></p>
 
 <form method="post" action="{% url 'experienceedit' experience.id %}">
     {% csrf_token %}

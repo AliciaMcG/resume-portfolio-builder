@@ -8,10 +8,11 @@
 </head>
 <body>
 
-<a href="/experiences">Back to Portfolio</a>
+<a href="/">Back to Home</a> | <a href="/experiences">Back to Portfolio</a>
 
-<h2>Edit {{ experience.title }} Piece</h2>
-<a href="/deletepiece/{{ piece.id }}/">Delete Piece</a><br>
+<h2>Edit {{ experience.title }} Piece | <a class="delete" href="/deletepiece/{{ piece.id }}/">Delete Piece</a></h2>
+<h3>EDIT</h3>
+<p><i>To select multiple skills, hold CTRL</i></p>
 
 {% if piece.image %}
     <img src="/media/{{ piece.image }}/">

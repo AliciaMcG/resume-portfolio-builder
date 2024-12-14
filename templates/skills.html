@@ -9,6 +9,7 @@
 <body>
 
 <a href="profile">Back to Home</a><br>
+<br><p><i>Add new skills at the bottom of the page. To delete a skill, select edit then delete.</i></p><hr><br>
 
 <h1>Skills</h1>
 
@@ -22,10 +23,11 @@
             <h3>{{ skill.title }}</h3>
             <a href="editskill/{{skill.id}}/">Edit Skill</a>
         </li>
+        <br>
     {% endfor %}
 </ul>
 
-<br><hr><br>
+<hr><br>
 
 <h2>Add Skill</h2>
 

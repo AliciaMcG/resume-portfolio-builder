@@ -9,7 +9,7 @@
 <body>
 
 <h1>Welcome {{ profile.user.username }}</h1>
-<a href="signout">Logout</a>
+<a class="delete" href="signout">Logout</a>
 <br>
 <hr>
 <br>
@@ -41,6 +41,9 @@
 
 <h3>Key Skills</h3>
 <p>These skills are in a lot of your saved jobs. Developing these skills could be beneficial for a lot of opportunities that interest you.</p>
+{% if not keyskills %}
+    <p>You have no saved skills, or no skills linked to jobs and experiences. Go add some <a href="skills">skills</a>, or populate your <a href="jobs">jobs</a>, <a href="portfolio">portfolio</a>, and <a href="experiences">experiences</a> with them.</p>
+{% endif %}
 <ul>
 {% for skill in keyskills %}
     {% if skill %}
@@ -51,6 +54,9 @@
 
 <h3>Weak Skills</h3>
 <p>These skills are in a lot of your saved jobs, but you don't have many saved experiences with them compared to saved jobs.</p>
+{% if not weakskills %}
+    <p>You have no saved skills, or no skills linked to jobs and experiences. Go add some <a href="skills">skills</a>, or populate your <a href="jobs">jobs</a>, <a href="portfolio">portfolio</a>, and <a href="experiences">experiences</a> with them.</p>
+{% endif %}
 <ul>
 {% for skill in weakskills %}
     {% if skill %}
@@ -61,6 +67,9 @@
 
 <h3>Strong Skills</h3>
 <p>These skills are in a lot of your saved experiences and portfolio pieces. You have a lot of experience doing these things.</p>
+{% if not strongskills %}
+    <p>You have no saved skills. Go add some in <a href="skills">Skills</a>.</p>
+{% endif %}
 <ul>
 {% for skill in strongskills %}
     {% if skill %}

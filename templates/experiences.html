@@ -9,6 +9,7 @@
 <body>
 
 <a href="profile">Back to Home</a><br>
+<br><p><i>Add new experiences at the bottom of the page. To delete an experience, select edit then delete.</i></p><hr><br>
 
 <h1>Experiences</h1>
 
@@ -34,13 +35,14 @@
             </ul>
             <a href="editexperience/{{experience.id}}/">Edit Experience</a>
         </li>
+        <br>
     {% endfor %}
 </ul>
 
-<br><hr><br>
+<hr><br>
 
 <h2>Add Experience</h2>
-
+<p><i>To select multiple skills, hold CTRL</i></p>
 <form method="post" action="{% url 'addexperience' %}">
     {% csrf_token %}
     {{ experienceform.as_p }}

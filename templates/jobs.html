@@ -9,6 +9,8 @@
 <body>
 
 <a href="profile">Back to Home</a><br>
+<br><p><i>Add new jobs at the bottom of the page. To delete a job, select edit then delete.</i></p>
+<p><i>Select build resume to display a generated resume and recommended portfolio pieces.</i></p><hr><br>
 
 <h1>Jobs</h1>
 
@@ -21,7 +23,7 @@
         <li>
             <h3>{{ job.title }}</h3>
             {% if job.link != null %}
-                <p>LINK: {{ job.link }}</p>
+                <p>LINK: <a target="_blank" href="{{ job.link }}">{{ job.link }}</a></p>
             {% endif %}
 
             <p>ASSOCIATED SKILLS:</p>
@@ -36,16 +38,17 @@
             {% endif %}
 
             <p><a href="editjob/{{job.id}}/">Edit Job</a></p>
-            <p><a href="buildresume/{{ job.id }}/">BUILD RESUME</a></p>
+            <p><a class="build" href="buildresume/{{ job.id }}/">BUILD RESUME</a></p>
         </li>
+        <br>
     {% endfor %}
 
 </ul>
 
-<br><hr><br>
+<hr><br>
 
 <h2>Save a Job</h2>
-
+<p><i>To select multiple skills, hold CTRL</i></p>
 <form method="post" action="{% url 'addjob' %}">
     {% csrf_token %}
     {{ jobform.as_p }}

@@ -9,6 +9,14 @@ a {
 }
 
 img {
-    max-height: 2em;
+    max-height: 5em;
     width: auto;
+}
+
+.delete {
+    color: red;
+}
+
+.build {
+    color: mediumseagreen;
 }

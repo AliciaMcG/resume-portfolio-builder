@@ -8,20 +8,11 @@
 </head>
 <body>
 
-<a href="/jobs">Back to Jobs</a> | <a href="/">Back to Home</a>
+<a href="/">Back to Home</a> | <a href="/jobs">Back to Jobs</a>
 
-<h2>Edit {{ job.title }} Job</h2>
-<a href="/deletejob/{{ job.id }}/">Delete Job</a>
-
-{#<h2>{{ job.title }}</h2>#}
-{#<p><a>{{ job.link }}</a></p>#}
-{#<p>#}
-{#    {% for skill in job.skills.all %}#}
-{#        {{ skill.title }}#}
-{#    {% endfor %}#}
-{#</p>#}
-{#<p>{{ job.notes }}</p>#}
-{#<a href="/deletejob/{{ job.id }}/">Delete Job</a>#}
+<h2>Edit {{ job.title }} Job | <a class="delete" href="/deletejob/{{ job.id }}/">Delete Job</a></h2>
+<h3>EDIT</h3>
+<p><i>To select multiple skills, hold CTRL</i></p>
 
 <form method="post" action="{% url 'jobedit' job.id %}">
     {% csrf_token %}
